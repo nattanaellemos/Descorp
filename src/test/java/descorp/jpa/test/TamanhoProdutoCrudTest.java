@@ -25,12 +25,36 @@ public class TamanhoProdutoCrudTest extends GenericTest{
         assertNotNull(tp.getNome()); 
     }
     
-   @Test
-    public void consultarTamanhoProduto(){
-    
-       TamanhoProduto tp = em.find(TamanhoProduto.class, 1l);
-       assertNotNull(tp);       
-       assertEquals("Pequeno", tp.getNome());
+    @Test
+    public void AtualizarTamanhoProduto(){
+        logger.info("Executando atualizarTamanhoProduto()");
+        String nome = "Enorme";
+        
+        Long id = 1l;
+        TamanhoProduto tp = em.find(TamanhoProduto.class, id);
+        tp.setNome(nome);
+        em.flush();
+        em.clear();
+        Map<String, Object> map = new HashMap<>();
+        map.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        tp = em.find(TamanhoProduto.class, id, map);
+        assertEquals(nome, tp.getNome());
+        logger.info("Atualizado");
+    }
+     @Test
+    public void atualizarTPMerge() {
+        logger.info("Executando atualizarTPMerge()");
+        String nome="Minúsculo";
+        Long id = 1l;
+       TamanhoProduto tp = em.find(TamanhoProduto.class, id);
+        tp.setNome(nome);
+        
+        em.clear();
+        em.merge(tp);
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        tp = em.find(TamanhoProduto.class, id, properties);
+        assertEquals(nome, tp.getNome());
     }
     
     @Test

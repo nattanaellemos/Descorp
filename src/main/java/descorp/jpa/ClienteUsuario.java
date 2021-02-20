@@ -16,10 +16,9 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -41,7 +40,26 @@ import org.hibernate.validator.constraints.NotBlank;
 @DiscriminatorValue(value = "C")
 @PrimaryKeyJoinColumn(name = "USUARIO_ID", referencedColumnName = "USUARIO_ID")
 @Access(AccessType.FIELD)
-
+@NamedQueries(
+        {
+            @NamedQuery(
+                    name = "ClienteUsuario.PorData",
+                    query = "SELECT cu FROM ClienteUsuario cu WHERE cu.dataNascimento LIKE :dataNascimento ORDER BY cu.id"
+            ),
+            @NamedQuery(
+                    name = "ClienteUsuario.PorNome",
+                    query = "SELECT cu FROM UsuarioGeral cu WHERE cu.nome LIKE :nome ORDER BY cu.id"
+            ),
+            @NamedQuery(
+                    name = "ClienteUsuario.PorCpf",
+                    query = "SELECT cu FROM UsuarioGeral cu WHERE cu.cpf LIKE :cpf ORDER BY cu.id"
+            ),
+            @NamedQuery(
+                    name = "ClienteUsuario.PorEmail",
+                    query = "SELECT cu FROM UsuarioGeral cu WHERE cu.email LIKE :email ORDER BY cu.id"
+            )
+        }
+)
 public class ClienteUsuario extends UsuarioGeral implements Serializable {
 
 

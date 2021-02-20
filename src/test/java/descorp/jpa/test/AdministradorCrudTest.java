@@ -16,7 +16,7 @@ import org.junit.Test;
 
 /**
  *
- * @author NATANAEL.JUNIOR
+ * @author marcosbrasil98
  */
 public class AdministradorCrudTest extends GenericTest {
     
@@ -40,12 +40,44 @@ public class AdministradorCrudTest extends GenericTest {
       return adm;
     }
     
-   @Test
-   public void consultarPermissaoADM(){
+    @Test
+    public void AtualizarAdm(){
+        logger.info("Executando atualizarADM()");
+        String novoEmail = "fulano_de_tal@gmail.com";
+        String cpf = "807.392.930-95";
+        
+        Long id = 2l;
+        Administrador adm = em.find(Administrador.class, id);
+        adm.setEmail(novoEmail);
+        adm.setCpf(cpf);
+        
+        em.flush();       
+        
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        adm = em.find(Administrador.class, id, properties);
+        
+        assertEquals(novoEmail, adm.getEmail());
+        assertEquals(cpf, adm.getCpf());
+    }
+     @Test
+    public void atualizarAdmMerge() {
+        logger.info("Executando atualizarAdmMerge()");
+        String novoEmail = "cicrano_de_tal2@gmail.com";
+        String cpf = "848.345.490-46";
+        Long id = 2l;
+        Administrador adm = em.find(Administrador.class, id);
+        adm.setEmail(novoEmail);
+        adm.setCpf(cpf);
+        em.clear();
+        em.merge(adm);
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        adm = em.find(Administrador.class, id, properties);
+        assertEquals(novoEmail, adm.getEmail());
+         assertEquals(cpf, adm.getCpf());
+    }
     
-    Administrador adm = em.find(Administrador.class,2l);
-    assertEquals("Concedida", adm.getPermissao().toString());
-   }
     @Test
     public void removerADM() {
         logger.info("Executando removerADM()");

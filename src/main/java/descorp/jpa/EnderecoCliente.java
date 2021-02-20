@@ -6,12 +6,9 @@
 package descorp.jpa;
 import descorp.validador.ValidaPais;
 import java.io.Serializable;
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;

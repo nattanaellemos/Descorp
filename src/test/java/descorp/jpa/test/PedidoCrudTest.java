@@ -19,7 +19,7 @@ import org.junit.Test;
 
 /**
  *
- * @author NATANAEL.JUNIOR
+ * @author marcosbrasil98
  */
 public class PedidoCrudTest extends GenericTest {
 
@@ -35,12 +35,50 @@ public class PedidoCrudTest extends GenericTest {
     }
 
     @Test
-    public void consultarStatusPedido(){
-    
-       Pedido p = em.find(Pedido.class, 1l);
-        assertNotNull(p);
-        assertEquals("ANDAMENTO", p.getStatus().toString());
+    public void Atualizar() {
+        logger.info("Executando atualizar()");
+        String log = "23232323";
+        
+
+        Long id = 1l;
+        Pedido p = em.find(Pedido.class, id);
+        p.setLog(log);
+        p.setStatus(StatusPedido.ENTREGUE);
+
+        em.flush();
+
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        p = em.find(Pedido.class, id, properties);
+
+        assertEquals(log, p.getLog());
+        
+        assertEquals(StatusPedido.ENTREGUE,p.getStatus());
+
+        logger.info("Atualizado");
     }
+
+    @Test
+    public void atualizarMerge() {
+        logger.info("Executando atualizarMerge()");
+        String log = "2124b1l2j41bkhj";
+        
+
+        Long id = 1l;
+        Pedido p = em.find(Pedido.class, id);
+        p.setLog(log);
+        p.setStatus(StatusPedido.ENTREGUE);
+
+        em.clear();
+        em.merge(p);
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        p = em.find(Pedido.class, id, properties);
+
+        assertEquals(log, p.getLog());
+        assertEquals(StatusPedido.ENTREGUE,p.getStatus());
+    }
+
     @Test
     public void remover() {
         logger.info("Executando remover()");

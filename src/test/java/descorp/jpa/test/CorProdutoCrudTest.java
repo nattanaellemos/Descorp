@@ -16,7 +16,7 @@ import org.junit.Test;
 
 /**
  *
- * @author NATANAEL.JUNIOR
+ * @author marcosbrasil98
  */
 public class CorProdutoCrudTest extends GenericTest {
 
@@ -31,12 +31,40 @@ public class CorProdutoCrudTest extends GenericTest {
     }
 
     @Test
-    public void consultarCliente(){
-    
-       CorProduto cp = em.find(CorProduto.class, 2l);
-        assertNotNull(cp);
-        assertEquals("Verde", cp.getNome().toString());
+    public void Atualizar() {
+        logger.info("Executando atualizar()");
+        String nome = "VIOLETA";
+        Long id = 1l;
+        CorProduto cp = em.find(CorProduto.class, id);
+        cp.setNome(nome);
+
+        em.flush();
+        
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        cp = em.find(CorProduto.class, id, properties);
+        
+        assertEquals(nome, cp.getNome());
+        logger.info("Atualizado");
     }
+
+    @Test
+    public void atualizarMerge() {
+        logger.info("Executando atualizarMerge()");
+        String nome = "Azul claro";
+
+        Long id = 1l;
+        CorProduto cp = em.find(CorProduto.class, id);
+        cp.setNome(nome);
+
+        em.clear();
+        em.merge(cp);
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        cp = em.find(CorProduto.class, id, properties);
+        assertEquals(nome, cp.getNome());
+    }
+
     @Test
     public void remover() {
         logger.info("Executando remover()");

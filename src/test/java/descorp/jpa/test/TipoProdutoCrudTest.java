@@ -30,13 +30,39 @@ public class TipoProdutoCrudTest extends GenericTest {
         assertNotNull(tp.getNome());
     }
 
-   @Test
-    public void consultarTamanhoProduto(){
-    
-       TipoProduto tp = em.find(TipoProduto.class, 3l);
-       assertNotNull(tp);       
-       assertEquals("Pedal", tp.getNome());
+    @Test
+    public void AtualizarTipoProduto() {
+        logger.info("Executando atualizarTipoProduto()");
+        String nome = "Brinquedo";
+
+        Long id = 2l;
+        TipoProduto tp = em.find(TipoProduto.class, id);
+        tp.setNome(nome);
+
+        em.flush();
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        tp = em.find(TipoProduto.class, id, properties);
+        assertEquals(nome, tp.getNome());
+        logger.info("Atualizado");
     }
+
+    @Test
+    public void atualizarTPMerge() {
+        logger.info("Executando atualizarTPMerge()");
+        String nome = "Beyblade";
+        Long id = 2l;
+        TipoProduto tp = em.find(TipoProduto.class, id);
+        tp.setNome(nome);
+
+        em.clear();
+        em.merge(tp);
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        tp = em.find(TipoProduto.class, id, properties);
+        assertEquals(nome, tp.getNome());
+    }
+
     @Test
     public void removerTipoProduto() {
         logger.info("Executando removerTipoProduto()");

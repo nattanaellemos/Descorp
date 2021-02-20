@@ -22,15 +22,48 @@ public class ClienteUsuarioCrudTest extends GenericTest {
         assertNotNull(cliente.getId());
     }
 
-   @Test
-    public void consultarCelularCliente(){
-    
-       ClienteUsuario cliente = em.find(ClienteUsuario.class, 4l);
-        assertNotNull(cliente);
-        assertEquals("323232", cliente.getCelular().toString());
+    @Test
+    public void atualizarClienteUsuario() {
+
+        logger.info("Executando atualizarClienteUsuario()");
+        String novoEmail = "cicrano_de_tal@gmail.com";
+        String telefone = "(81) 40028922";
+        String fixo = "923423523";
+        Long id = 1l;
+        ClienteUsuario cliente = em.find(ClienteUsuario.class, id); 
+        cliente.setEmail(novoEmail);
+        cliente.setCelular(telefone);
+        cliente.setFixo(fixo);
+        em.flush();
+        em.clear();
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        cliente = em.find(ClienteUsuario.class, id, properties);        
+        assertEquals(novoEmail, cliente.getEmail());
+        assertEquals(telefone, cliente.getCelular());
+        assertEquals(fixo, cliente.getFixo());
+
     }
-    
-    
+
+    @Test
+    public void atualizarClienteUsuarioMerge() {
+        logger.info("Executando atualizarClienteUsuarioMerge()");
+        String novoEmail = "cicrano_de_tal2@gmail.com";
+        String telefone = "(81) 40028229";
+        Long id = 1l;
+        ClienteUsuario cliente = em.find(ClienteUsuario.class, id);
+        cliente.setEmail(novoEmail);
+        cliente.setCelular(telefone);
+        em.clear();
+        em.merge(cliente);
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        cliente = em.find(ClienteUsuario.class, id, properties);
+        assertEquals(novoEmail, cliente.getEmail());
+        assertEquals(telefone, cliente.getCelular());
+
+    }
+
     @Test
     public void removerClienteUsuario() {
         logger.info("Executando removerClienteUsuario()");

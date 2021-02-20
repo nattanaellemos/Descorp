@@ -33,13 +33,39 @@ public class ProdutoCrudTest extends GenericTest {
     }
     
     @Test
-    public void consultarProduto(){
-    
-      Produto p = em.find(Produto.class, 2l);
-       assertNotNull(p);
-       assertEquals("Camisa", p.getNome().toString());
-       assertEquals("Camisa do Thor", p.getDescricao());
+    public void Atualizar(){
+        logger.info("Executando atualizar()");
+        String nome = "Camisa de Formatura";
+       
+        Long id = 1l;
+         Produto p =em.find(Produto.class, id);
+        p.setNome(nome);
+        
+        em.flush();
+        
+        Map map = new HashMap();
+        map.put("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        
+        p = em.find(Produto.class, id, map);
+        assertEquals(nome, p.getNome());
+        
+        logger.info("Atualizado");
     }
+     @Test
+    public void atualizarMerge() {
+        logger.info("Executando atualizarMerge()");
+        String nome = "Camisa de ABC";
+        Long id = 1l;
+         Produto p =em.find(Produto.class, id);
+        p.setNome(nome);
+        em.clear();
+        em.merge(p);
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistance.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        p = em.find(Produto.class, id, properties);
+        assertEquals(nome, p.getNome());
+    }
+   
     @Test
     public void remover() {
         logger.info("Executando remover()");
