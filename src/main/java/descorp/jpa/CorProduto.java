@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -44,7 +45,8 @@ public class CorProduto implements Serializable{
 @Column(name="CORPRODUTO_ID")
 private Long id;
 
-@NotBlank
+@NotBlank(message = "Nome é obrigatório")
+@Size(min = 1,max = 20)
 @Column(name = "CORPRODUTO_NOME")
 private String nome;
 @NotNull(message = "Tipo não pode ser null")

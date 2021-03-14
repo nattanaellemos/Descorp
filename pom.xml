@@ -45,6 +45,12 @@
             <version>5.2.5.Final</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>  
     <name>LojaVirtual</name>
 </project>

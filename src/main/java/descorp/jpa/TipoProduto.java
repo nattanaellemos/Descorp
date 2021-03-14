@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -41,7 +42,8 @@ public class TipoProduto implements Serializable{
 @Column(name = "TIPOPRODUTO_ID")
 private Long id;
 
-@NotNull
+@NotNull(message = "Tipo do produto é obrigatório")
+@Size(min = 1,max = 50)
 @Column(name = "TIPOPRODUTO_NOME")
 private String nome;
 

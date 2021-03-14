@@ -5,6 +5,7 @@
  */
 package descorp.jpa.test;
 
+
 import descorp.jpa.Administrador;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,7 @@ import org.junit.Test;
  *
  * @author marcosbrasil98
  */
-public class AdministradorCrudTest extends GenericTest {
+public class AdministradorCrudTest  extends GenericTest {
     
     @Test
     public void persistirAdm(){

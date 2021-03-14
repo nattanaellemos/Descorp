@@ -21,46 +21,46 @@ import org.hibernate.validator.constraints.NotBlank;
 @Embeddable
 public class EnderecoCliente implements Serializable{
         
- @NotNull
+ @NotNull(message = "Nome da rua é obrigatório")
  @Size(max=100)
  @Column(name="ENDERECO_NOME")
  private String nome;
  
- @NotBlank
+ @NotBlank(message = "Número é obrigatório")
  @Size(max = 10)
  @Column(name="ENDERECO_NUMERO")
  private String numero;
  
- @NotNull
+ 
  @Size(max = 200)
  @Column(name="ENDERECO_COMPLEMENTO")
   private String complemento;
  
- @NotBlank
+ @NotBlank(message = "Bairro é obrigatório")
  @Size(max=20)
  @Column(name="ENDERECO_BAIRRO")
  private String bairro;
  
- @NotBlank
+ @NotBlank(message = "Cidade é obrigatório")
  @Size(max=40)
  @Column(name="ENDERECO_CIDADE")
  private String cidade;
  
- @NotBlank
+ @NotBlank(message = "CEP é obrigatório")
  @Size(max=20)
  @Column(name="ENDERECO_CEP")
- private String cep;
+ protected String cep;
  
- @NotNull
+ @NotNull(message = "Estado é obrigatório")
  @Size(max = 30)
  @Column(name="ENDERECO_ESTADO")
- private String estado;
+ protected String estado;
  
- @NotNull
- @ValidaPais
+ @NotNull(message = "País é obrigatório")
+ @ValidaPais(message = "País inválido")
  @Size(max = 2)
  @Column(name="ENDERECO_PAIS")
- private String pais;
+ protected String pais;
 
 public boolean possui(String nome){
        return nome.contains(nome);

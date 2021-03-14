@@ -22,14 +22,7 @@ import javax.persistence.CacheRetrieveMode;
  */
 public class CartaoCreditoCrudTest extends GenericTest {
 
-    @Test
-    public void persistir() {
-        logger.info("Executando persistir()");
-        CartaoCredito p = criarCartao();
-        em.persist(p);
-        em.flush();
-        assertNotNull(p.getId());
-    }
+ 
 
     @Test
     public void Atualizar() {

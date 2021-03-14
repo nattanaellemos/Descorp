@@ -45,21 +45,21 @@ public class TamanhoProduto implements Serializable{
  @Column(name="TAMANHOPRODUTO_ID")
  private Long id;
  
- @NotEmpty
+ @NotNull(message = "Nome é obrigatório")
  @Column(name="TAMANHOPRODUTO_NOME")
  private String nome;
  
- @NotNull
+ @NotNull(message = "Altura é obrigatório")
  @Column(name="TAMANHOPRODUTO_ALTURA")
  private double altura;
- @NotNull
+ @NotNull(message = "Comprimento é obrigatório")
  @Column(name="TAMANHOPRODUTO_COMPRIMENTO")
  private double comprimento;
- @NotNull
+ @NotNull(message = "Largura é obrigatório")
  @Column(name="TAMANHOPRODUTO_LARGURA")
  private double largura;
- @NotEmpty
- @Size(max = 50)
+ @NotNull(message = "Tipo é obrigatório")
+ @Size(max = 50,min = 1)
  @Column(name="TAMANHOPRODUTO_TIPO")
  private String tipo;
  

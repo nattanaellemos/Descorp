@@ -25,15 +25,7 @@ import org.junit.Test;
  */
 public class EnderecoClienteCrudTest extends GenericTest{
     
-    @Test
-    public void persistir(){
-    logger.info("Executando persistir()");
-        ClienteUsuario ce = criarEndereco();
-        em.persist(ce);
-        em.flush();
-        assertNotNull(ce.getEndereco().getNome());
-        assertNotNull(ce.getEndereco().getNumero());
-    }
+  
     
     @Test
     public void consultarEndereco(){

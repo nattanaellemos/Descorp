@@ -51,17 +51,18 @@ public class Pedido implements Serializable{
 @Column(name = "PEDIDO_ID",nullable = false)
 private Long id;
 
-@NotNull
-@Size(max=20)
+@NotNull(message = "Log é obrigatório")
+@Size(max=20, min = 1)
 @Column(name = "PEDIDO_LOG")
 private String log;
 
-@NotNull
+@NotNull(message = "Quantidade é obrigatório")
 @Column(name = "PEDIDO_QUANTIDADE")
 private Integer quantidade; 
 
+@NotNull(message = "Status é obrigatório")
 @Enumerated(EnumType.STRING) //Use EnumType.ORDINAL para armazenar a enumeração como inteiro.
-    @Column(name = "PEDIDO_STATUS", nullable = false, length = 20)
+  @Column(name = "PEDIDO_STATUS", nullable = false, length = 20)
     private StatusPedido status;
 
 @Valid
@@ -92,6 +93,10 @@ private Integer quantidade;
         this.clienteusuario = Clienteusuario;
     }
 
+public List <Produto> criarProduto(List<Produto> produto) {
+        this.setProduto(produto);
+        return getProduto();
+    }
 
 public boolean possui(String log){
        return log.contains(log);

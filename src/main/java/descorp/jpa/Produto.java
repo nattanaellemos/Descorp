@@ -66,7 +66,7 @@ public class Produto implements Serializable {
     @Column(name = "PRODUTO_ID")
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Nome é obrigatório")
     @Size(max = 30)
     @Column(name = "PRODUTO_NOME")
     private String nome;
@@ -76,14 +76,15 @@ public class Produto implements Serializable {
     @Column(name = "PRODUTO_DESCRICAO")
     private String descricao;
 
-    @NotNull
+    @NotNull (message = "Quantidade é obrigatório")
     @Column(name = "PRODUTO_QUANTIDADE")
     private Integer quantidade;
 
-    @NotNull
+    @NotNull(message = "Preço é obrigatório")
     @Column(name = "PRODUTO_PRECO")
     private double preco;
-
+ 
+    @Valid
     @Embedded
     private ImagemProduto imgProduto;
 

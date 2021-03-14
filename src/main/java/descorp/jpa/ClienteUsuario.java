@@ -82,6 +82,8 @@ private String celular;
 @Column(name="CLIENTE_FIXO",length=20)
 private String fixo;
 
+@NotNull(message = "Endereço não pode ser null")
+@Valid
 @Embedded
 private EnderecoCliente endereco;
 
@@ -90,7 +92,10 @@ private EnderecoCliente endereco;
 private List<Pedido> pedidoUsuario;
 
 
-
+public EnderecoCliente criarEndereco() {
+        this.setEndereco(new EnderecoCliente());
+        return getEndereco();
+    }
 
     public Date getDataNascimento() {
         return dataNascimento;

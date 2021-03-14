@@ -12,7 +12,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ClienteUsuarioCrudTest extends GenericTest {
-
+/*
     @Test
     public void persistirClienteUsuario() {
         logger.info("Executando persistirClienteUsuario()");
@@ -21,7 +21,7 @@ public class ClienteUsuarioCrudTest extends GenericTest {
         em.flush();
         assertNotNull(cliente.getId());
     }
-
+*/
     @Test
     public void atualizarClienteUsuario() {
 

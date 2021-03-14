@@ -19,6 +19,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import static javax.persistence.DiscriminatorType.STRING;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -48,17 +50,17 @@ private Long id;
 private String nome;
 
 
-@Size(max=40)
-@Email
-@Column(name="USUARIO_EMAIL",length=40)
-private String email;
+ @NotNull
+ @Email
+ @Column(name = "USUARIO_EMAIL", length = 30, nullable = false)
+ protected String email;
 
-@NotBlank(message = "CPF não pode ser null")
+@NotNull
 @CPF
 @Column(name="USUARIO_CPF")
-private String cpf;
+protected String cpf;
 
-
+    
     public boolean possui(String nome){
         return nome.contains(nome);
     }
@@ -98,7 +100,22 @@ private String cpf;
     }
 
     
-  
+  @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof UsuarioGeral)) {
+            return false;
+        }
+        UsuarioGeral other = (UsuarioGeral) object;
+
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+    }
 
 
    

@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -61,11 +62,11 @@ public class CartaoCredito implements Serializable {
     private String bandeira;
 
     @NotNull (message = "Número não pode ser null")
+    @Size(min = 16, max = 16,message = "O tamanho deve ser igual a 16")
     @Column(name = "TXT_NUMERO")
     private String numero;
-
-    @Temporal(TemporalType.DATE)
     
+    @Temporal(TemporalType.DATE)    
     @Column(name = "DT_EXPIRACAO", nullable = false)
     private Date dataExpiracao;
 
@@ -112,5 +113,28 @@ public class CartaoCredito implements Serializable {
     public boolean isEmpty() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+  @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof ClienteUsuario)) {
+            return false;
+        }
+
+        CartaoCredito other = (CartaoCredito) object;
+
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+    }
+
+    @Override
+    public String toString() {
+        return "exemplo.jpa.CartaoCredito[ id=" + id + " ]";
+    }
 
 }
+

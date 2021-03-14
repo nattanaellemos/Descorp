@@ -5,6 +5,7 @@
  */
 package descorp.jpa.test;
 
+import descorp.jpa.test.DbUnitUtil;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
